@@ -70,6 +70,7 @@ function _layout() {
       {routes.map((route) => (
         <Tabs.Screen
           name={route.name}
+          key={route.id}
           options={{
             title: '',
             headerShown: false,

@@ -1,13 +1,14 @@
 import { Link } from 'expo-router';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, View, ScrollView, StyleSheet, Image, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HeartLight } from '../assets/icons/Heart';
 import { InstaLight } from '../assets/icons/Logo';
 import { MessengerLight } from '../assets/icons/Messenger';
-import { heightScale, widthScale } from '../common/const/resolutionScales';
+import { computeImageDimensions, heightScale, widthScale } from '../common/const/resolutionScales';
 import { user1, user2, user3, user4 } from '../assets/images/users';
 import { PlusLight } from '../assets/icons/Plus';
+import axios from 'axios';
 
 const topbarIconsLinks = [
   { id: 0, icon: HeartLight },
@@ -25,7 +26,43 @@ const userStories = [
   { id: 7, img: user4, userName: 'tancamanc' },
 ];
 
+const YOUR_ACCESS_KEY = 'AxJ4m-bkuvGcdpwreV32S5WTqtzsWoSsOAVJz1olwuk';
+
+const calculateImageSizes = () => {
+  Image.getSize(imageURL, (originalWidth, originalHeight) => {
+    return (originalHeight / originalWidth) * width;
+  });
+};
+
 function App() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPhotos = async () => {
+      try {
+        const response = await axios.get(`https://api.unsplash.com/photos?per_page=${3}`, {
+          headers: {
+            'Accept-Version': 'v1',
+            Authorization: `Client-ID ${YOUR_ACCESS_KEY}`,
+          },
+        });
+        setPosts(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPhotos();
+
+    console.log('first');
+  }, []);
+
+  console.log(posts);
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <ScrollView>
@@ -40,7 +77,7 @@ function App() {
         {/* <View style={styles.stories}></View> */}
         <ScrollView horizontal style={styles.storiesWrapper}>
           {userStories.map((userStory, index) => (
-            <View style={[{ flex: 1 }, !!index && { marginLeft: widthScale(10) }]}>
+            <View key={userStory.id} style={[{ flex: 1 }, !!index && { marginLeft: widthScale(10) }]}>
               <View style={{ position: 'relative' }}>
                 <LinearGradient
                   style={[styles.storiesGradientBorder]}
@@ -63,6 +100,40 @@ function App() {
             </View>
           ))}
         </ScrollView>
+
+        {posts.map((post) => {
+          const { height } = computeImageDimensions(post.height);
+          console.log(height);
+          return (
+            <View style={{ marginTop: 8 }}>
+              <View style={styles.postHeader}>
+                <LinearGradient
+                  style={[styles.storiesGradientBorder, { height: 42, width: 42 }]}
+                  colors={['#FBAA47', '#D91A46', '#A60F93']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <Image
+                    source={{
+                      uri: post.user?.profile_image.small,
+                    }}
+                    style={[styles.storiesImage, { height: 36, width: 36 }]}
+                  />
+                </LinearGradient>
+                <Text style={styles.postUsername}>{post.user?.instagram_username}</Text>
+              </View>
+
+              <View style={{ flex: 1 }}>
+                <Image
+                  style={{ height: height, flex: 1 }}
+                  source={{
+                    uri: post.urls?.full,
+                  }}
+                />
+              </View>
+            </View>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );
@@ -72,7 +143,6 @@ const styles = StyleSheet.create({
   topbar: {
     paddingLeft: widthScale(20),
     paddingRight: widthScale(20),
-    flex: 1,
     flexDirection: 'row',
   },
   topbarIconsWrapper: {
@@ -99,6 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: heightScale(10),
     paddingLeft: widthScale(10),
+    borderColor: 'red',
     // flexDirection: 'row',
   },
   yourStoryIconWhiteSpace: {
@@ -126,6 +197,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 12,
   },
+  postHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 8,
+    paddingLeft: widthScale(10),
+    paddingRight: widthScale(10),
+  },
+  postUsername: { marginLeft: 6, fontWeight: 'bold', fontSize: 14 },
 });
 
 export default App;
