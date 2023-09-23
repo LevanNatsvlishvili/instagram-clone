@@ -9,6 +9,7 @@ import axios from 'axios';
 import Story from 'components/components/Story';
 import Post from 'components/components/Post';
 import colorScheme from 'utils/colorScheme';
+import Comment from 'assets/icons/Comment';
 
 const userStories = [
   { id: 0, img: user1, userName: 'chikamika1' },
@@ -55,12 +56,13 @@ function App() {
       <View style={styles.topbar}>
         <Instagram />
         <View style={styles.topbarIconsWrapper}>
-          <Messenger />
+          <Messenger height={24} width={22} style={styles.topbarIcon} />
+          <Comment height={24} width={22} />
         </View>
       </View>
       <ScrollView horizontal style={styles.storiesWrapper}>
         {userStories.map((userStory, index) => (
-          <Story size={73} isMainStory={!!index} username={userStory.userName} img={userStory.img} />
+          <Story key={userStory.id} size={73} isMainStory={!!index} username={userStory.userName} img={userStory.img} />
         ))}
       </ScrollView>
 
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
   },
   topbarIcon: {
-    marginLeft: widthScale(25),
+    marginRight: widthScale(12),
   },
   storiesWrapper: {
     flex: 1,

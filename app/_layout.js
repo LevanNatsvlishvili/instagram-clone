@@ -29,7 +29,6 @@ const routes = [
     id: '3',
     name: 'add',
     icon: AddPhoto,
-    iconFocused: AddPhoto,
     url: '/add',
   },
   {
