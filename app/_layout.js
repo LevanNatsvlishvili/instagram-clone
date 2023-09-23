@@ -9,6 +9,7 @@ import colorScheme from 'utils/colorScheme';
 import { heightScale } from 'utils/resolutionScales';
 import Story from 'components/components/Story';
 import { user1 } from 'assets/images/users';
+import { Profile, ProfileClicked } from 'assets/icons/Profile';
 
 const routes = [
   {
@@ -42,6 +43,8 @@ const routes = [
     id: '5',
     name: 'profile',
     // icon: AddPhotoLight,
+    icon: Profile,
+    iconFocused: ProfileClicked,
     url: '/profile',
   },
 ];

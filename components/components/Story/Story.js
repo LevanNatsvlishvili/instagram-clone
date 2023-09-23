@@ -16,7 +16,12 @@ function Story(props) {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
         >
-          <Image source={img} style={[styles.image, { height: heightScale(size - 6), width: widthScale(size - 6) }]} />
+          <View style={[styles.whitespace, { height: heightScale(size - 6), width: widthScale(size - 6) }]}>
+            <Image
+              source={img}
+              style={[styles.image, { height: heightScale(size - 12), width: widthScale(size - 12) }]}
+            />
+          </View>
         </LinearGradient>
 
         {!isPostStory && !isMainStory && (
@@ -35,23 +40,25 @@ function Story(props) {
 
 const styles = StyleSheet.create({
   gradientBorder: {
-    height: heightScale(73),
-    width: widthScale(73),
-    borderRadius: widthScale(73) / 2,
+    borderRadius: '50%',
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
   },
   image: {
-    height: heightScale(67),
-    width: widthScale(67),
-    borderRadius: widthScale(67) / 2,
+    borderRadius: '50%',
+  },
+  whitespace: {
+    backgroundColor: colorScheme.background,
+    borderRadius: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   addNewStoryIconWhiteSpace: {
-    height: heightScale(28),
-    width: widthScale(28),
-    backgroundColor: '#fff',
-    borderRadius: widthScale(28) / 2,
+    height: heightScale(26),
+    width: widthScale(26),
+    backgroundColor: colorScheme.background,
+    borderRadius: '50%',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
     width: widthScale(20),
     borderColor: '#E5E5E5',
     backgroundColor: '#009BFB',
-    borderRadius: widthScale(20) / 2,
+    borderRadius: '50%',
     justifyContent: 'center',
     alignItems: 'center',
   },

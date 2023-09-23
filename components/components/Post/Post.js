@@ -10,8 +10,8 @@ function Post(props) {
     <View style={{ flex: 1 }}>
       <Image style={{ height: heightScale(450), flex: 1 }} source={img} />
       <View style={styles.actions}>
-        <Heart width={22} height={22} style={styles.actionsIcon} />
-        <Comment width={22} height={22} style={styles.actionsIcon} />
+        <Heart width={widthScale(22)} height={heightScale(22)} style={styles.actionsIcon} />
+        <Comment width={widthScale(22)} height={heightScale(22)} style={styles.actionsIcon} />
       </View>
     </View>
   );

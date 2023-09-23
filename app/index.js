@@ -12,8 +12,8 @@ import colorScheme from 'utils/colorScheme';
 import Comment from 'assets/icons/Comment';
 
 const userStories = [
-  { id: 0, img: user1, userName: 'chikamika1' },
   { id: 1, img: user2, userName: 'messiShmesi' },
+  { id: 0, img: user1, userName: 'chikamika1' },
   { id: 2, img: user3, userName: 'tuinctunc' },
   { id: 3, img: user4, userName: 'zomba' },
   { id: 4, img: user1, userName: 'jonthebond' },
