@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { HeartLight } from 'assets/icons/Heart';
+import { Heart } from 'assets/icons/Heart';
 import { heightScale, widthScale } from 'utils/resolutionScales';
-import { CommentLight } from 'assets/icons/Comment';
+import Comment from 'assets/icons/Comment';
 
 function Post(props) {
   const { img } = props;
@@ -10,8 +10,8 @@ function Post(props) {
     <View style={{ flex: 1 }}>
       <Image style={{ height: heightScale(450), flex: 1 }} source={img} />
       <View style={styles.actions}>
-        <Image source={HeartLight} style={styles.actionsIcon} />
-        <Image source={CommentLight} style={styles.actionsIcon} />
+        <Heart width={22} height={22} style={styles.actionsIcon} />
+        <Comment width={22} height={22} style={styles.actionsIcon} />
       </View>
     </View>
   );
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   actionsIcon: {
-    marginRight: widthScale(20),
+    marginRight: widthScale(16),
   },
 });
 

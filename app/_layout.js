@@ -1,42 +1,48 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Image, StyleSheet, SafeAreaView } from 'react-native';
-import { HomeLight } from 'assets/icons/Home';
-import { SearchLight } from 'assets/icons/Search';
-import { AddPhotoLight } from 'assets/icons/AddPhoto';
-import { HeartLight } from 'assets/icons/Heart';
+import { SafeAreaView } from 'react-native';
+import { Home, HomeClicked } from 'assets/icons/Home';
+import { SearchClicked, Search } from 'assets/icons/Search';
+import { AddPhoto } from 'assets/icons/AddPhoto';
+import { Heart, HeartClicked } from 'assets/icons/Heart';
 import colorScheme from 'utils/colorScheme';
 import { heightScale } from 'utils/resolutionScales';
+import Story from 'components/components/Story';
+import { user1 } from 'assets/images/users';
 
 const routes = [
   {
     id: '1',
     name: 'index',
-    icon: HomeLight,
+    icon: Home,
+    iconFocused: HomeClicked,
     url: '/',
   },
   {
     id: '2',
     name: 'search',
-    icon: SearchLight,
+    icon: Search,
+    iconFocused: SearchClicked,
     url: '/search',
   },
   {
     id: '3',
     name: 'add',
-    icon: AddPhotoLight,
+    icon: AddPhoto,
+    iconFocused: AddPhoto,
     url: '/add',
   },
   {
     id: '4',
     name: 'notifications',
-    icon: HeartLight,
+    icon: Heart,
+    iconFocused: HeartClicked,
     url: '/notifications',
   },
   {
     id: '5',
     name: 'profile',
-    icon: AddPhotoLight,
+    // icon: AddPhotoLight,
     url: '/profile',
   },
 ];
@@ -44,7 +50,7 @@ const routes = [
 function _layout() {
   console.log(Tabs);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colorScheme.background }}>
       <Tabs
         screenOptions={{
           // tabBarActiveTintColor: Colors.orange.default,
@@ -52,6 +58,9 @@ function _layout() {
             height: heightScale(85),
             borderWidth: 1,
             borderTopColor: colorScheme.background,
+            borderRightColor: colorScheme.background,
+            borderLeftColor: colorScheme.background,
+            borderBottomColor: colorScheme.background,
             backgroundColor: colorScheme.background,
           },
         }}
@@ -63,7 +72,11 @@ function _layout() {
             options={{
               title: '',
               headerShown: false,
-              tabBarIcon: () => <Image style={styles.navbarIcon} source={route.icon} />,
+              tabBarIcon: ({ focused }) => {
+                if (route.iconFocused && focused) return <route.iconFocused height={28} width={28} />;
+                if (route.icon && !focused) return <route.icon height={28} width={28} />;
+                return <Story size={28} isPostStory img={user1} />;
+              },
               href: route.url,
             }}
           />
@@ -72,14 +85,5 @@ function _layout() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  navbarIcon: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    paddingVertical: 0,
-  },
-});
 
 export default _layout;

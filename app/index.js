@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, ScrollView, StyleSheet, Image } from 'react-native';
+import { View, ScrollView, StyleSheet, Image } from 'react-native';
 import { HeartLight } from 'assets/icons/Heart';
-import { InstaLight } from 'assets/icons/Logo';
-import { MessengerLight } from 'assets/icons/Messenger';
+import Instagram, { InstaLight } from 'assets/icons/Logo';
+import Messenger, { MessengerLight } from 'assets/icons/Messenger';
 import { heightScale, widthScale } from 'utils/resolutionScales';
 import { user1, user2, user3, user4 } from 'assets/images/users';
 import axios from 'axios';
 import Story from 'components/components/Story';
 import Post from 'components/components/Post';
 import colorScheme from 'utils/colorScheme';
-
-const topbarIconsLinks = [
-  { id: 0, icon: HeartLight },
-  { id: 1, icon: MessengerLight },
-];
 
 const userStories = [
   { id: 0, img: user1, userName: 'chikamika1' },
@@ -58,11 +53,9 @@ function App() {
   return (
     <ScrollView style={{ backgroundColor: colorScheme.background }}>
       <View style={styles.topbar}>
-        <Image source={InstaLight} />
+        <Instagram />
         <View style={styles.topbarIconsWrapper}>
-          {topbarIconsLinks.map((link) => (
-            <Image key={link.id} style={styles.topbarIcon} source={link.icon} />
-          ))}
+          <Messenger />
         </View>
       </View>
       <ScrollView horizontal style={styles.storiesWrapper}>

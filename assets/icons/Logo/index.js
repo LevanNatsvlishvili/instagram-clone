@@ -1,1 +1,8 @@
-export { default as InstaLight } from './instagram-light.png';
+import { lightMode } from 'utils/colorScheme';
+
+import Light from './instagram-light.svg';
+import Dark from './instagram-dark.svg';
+
+const Instagram = lightMode ? Light : Dark;
+
+export default Instagram;

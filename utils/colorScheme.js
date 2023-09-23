@@ -8,12 +8,4 @@ function isLightMode() {
 
 export const lightMode = isLightMode();
 
-function handleColorSchemeChange({ colorScheme }) {
-  if (colorScheme === 'dark') {
-    console.log('Switched to dark mode.');
-  } else {
-    console.log('Switched to light mode.');
-  }
-}
-
 export default lightMode ? lightModeColors : darkModeColors;
